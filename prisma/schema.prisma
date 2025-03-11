@@ -1,0 +1,128 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id             Int             @id @default(autoincrement())
+  email          String          @unique
+  name           String
+  password       String
+  role           Role            @default(USER)
+  paymentMethods PaymentMethod[]
+  reservations   Reservation[]
+  createdAt      DateTime        @default(now())
+  updatedAt      DateTime        @updatedAt
+  emailVerified  Boolean
+  image          String?         @db.Text
+  sessions       Session[]
+  accounts       Account[]
+
+  @@map("user")
+}
+
+model PaymentMethod {
+  id             Int      @id @default(autoincrement())
+  cardType       String
+  lastFourDigits String
+  isDefault      Boolean  @default(false)
+  user           User     @relation(fields: [userId], references: [id])
+  userId         Int
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+}
+
+model Bicycle {
+  id           Int           @id @default(autoincrement())
+  name         String
+  type         String?
+  hourlyRate   Decimal       @db.Decimal(10, 2)
+  available    Boolean       @default(true)
+  location     String?
+  imageUrl     String?
+  reservations Reservation[]
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+}
+
+model Reservation {
+  id            Int               @id @default(autoincrement())
+  startTime     DateTime          @default(now())
+  endTime       DateTime? 
+  hours         Float             
+  status        ReservationStatus @default(ACTIVE)
+  totalAmount   Decimal           @db.Decimal(10, 2)
+  paymentStatus PaymentStatus     @default(PENDING)
+  user          User              @relation(fields: [userId], references: [id])
+  userId        Int
+  bicycle       Bicycle           @relation(fields: [bicycleId], references: [id])
+  bicycleId     Int
+  createdAt     DateTime          @default(now())
+  updatedAt     DateTime          @updatedAt
+}
+
+enum Role {
+  USER
+  ADMIN
+}
+
+enum ReservationStatus {
+  ACTIVE
+  COMPLETED
+  CANCELLED
+}
+
+enum PaymentStatus {
+  PENDING
+  PAID
+  FAILED
+}
+
+model Session {
+  id        String   @id
+  expiresAt DateTime
+  token     String
+  createdAt DateTime
+  updatedAt DateTime
+  ipAddress String?  @db.Text
+  userAgent String?  @db.Text
+  userId    Int      // Changed from String to Int
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([token])
+  @@map("session")
+}
+
+model Account {
+  id                    String    @id
+  accountId             String    @db.Text
+  providerId            String    @db.Text
+  userId                Int
+  user                  User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  accessToken           String?   @db.Text
+  refreshToken          String?   @db.Text
+  idToken               String?   @db.Text
+  accessTokenExpiresAt  DateTime?
+  refreshTokenExpiresAt DateTime?
+  scope                 String?   @db.Text
+  password              String?   @db.Text
+  createdAt             DateTime
+  updatedAt             DateTime
+
+  @@map("account")
+}
+
+model Verification {
+  id         String    @id
+  identifier String    @db.Text
+  value      String    @db.Text
+  expiresAt  DateTime
+  createdAt  DateTime?
+  updatedAt  DateTime?
+
+  @@map("verification")
+}
