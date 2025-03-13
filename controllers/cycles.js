@@ -8,19 +8,18 @@ const GetBicycle = catchAsync(async(req,res)=>{
        
 })
 
-// const AddBicycle = catchAsync( async(req,res)=>{
-//         // if (req.user.role !== 'admin') {
-//         //     throw new AppError(403,'UNAUTHORIZED')
-//         //   }
+const AddBicycle = catchAsync( async(req,res)=>{
+        // if (req.user.role !== 'admin') {
+        //     throw new AppError(403,'UNAUTHORIZED')
+        //   }
     
-//           const bicycle = await prisma.bicycle.create({
-//             data: req.body
-//           });
-//           res.json(bicycle); 
-// });
+          const bicycle = await prisma.bicycle.create({
+            data: req.body
+          });
+          res.json(bicycle); 
+});
 
 const UpdateBicycle = catchAsync( async (req,res)=>{
-
   
       const bicycle = await prisma.bicycle.update({
         where: { id: parseInt(req.params.id) },
@@ -41,7 +40,7 @@ const DeleteBicycle = catchAsync(async (req,res)=> {
 
 module.exports = {
     GetBicycle,
-    // AddBicycle,
+    AddBicycle,
     UpdateBicycle,
     DeleteBicycle
 }
