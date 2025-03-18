@@ -98,12 +98,12 @@ Below are the API endpoints provided by the Joerides Backend. All endpoints are 
 ### Reservation Routes
 | Method | Endpoint                  | Description                              | Authentication       |
 |--------|---------------------------|------------------------------------------|----------------------|
-| POST   | `/reservations`           | Create a new reservation                 | No                   |
+| POST   | `/reservations`           | Create a new reservation                 | Yes                  |
 | GET    | `/reservations/get`       | Get all reservations                     | Yes                  |
-| PUT    | `/reservations/:id/cancel`| Cancel a reservation                     | No                   |
-| PUT    | `/reservations/:id/update`| Extend a reservation’s duration          | No                   |
+| PUT    | `/reservations/:id/cancel`| Cancel a reservation                     | Yes                  |
+| PUT    | `/reservations/:id/update`| Extend a reservation’s duration          | Yes                  |
 | GET    | `/reservations/active/:id`| Get active reservations for a user/bike  | Yes                  |
-| PUT    | `/reservations/complete/:id`| Manually complete a reservation       | Yes                  |
+| PUT    | `/reservations/complete/:id`| Manually complete a reservation        | Yes                  |
 
 ### Bicycle Routes
 | Method | Endpoint         | Description                          | Authentication       |
