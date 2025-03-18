@@ -77,7 +77,7 @@ The Joerides Backend provides a RESTful API to manage bicycle reservations and u
   ```
   npm start
   ```
-- The API will be available at `http://localhost:5000` (or your configured `PORT`).
+- The API will be available at `http://localhost:3000` (or your configured `PORT`).
 
 ### Testing
 To run the test suite (if implemented):
@@ -87,7 +87,7 @@ npm test
 
 ## API Endpoints
 
-Below are the API endpoints provided by the Joerides Backend. All endpoints are prefixed with `/api`. Some endpoints require authentication, and certain ones are restricted to users with the `"ADMIN"` role.
+Below are the API endpoints provided by the Joerides Backend. All endpoints are prefixed with `/api/v1`. Some endpoints require authentication, and certain ones are restricted to users with the `"ADMIN"` role.
 
 ### Authentication Routes
 | Method | Endpoint         | Description                          | Authentication       |
@@ -133,7 +133,17 @@ Content-Type: application/json
 **Response:**
 ```json
 {
-  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+  "token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsInJvbGUiOiJBRE1JTiIsImlhdCI6MTc0MjI3MTMyM30.oNyv3umoAdECuIFkaTnRkXemaUjA6fULb7pcWTjw","user":
+  {
+    "id":1,
+    "email":"email@gmail.com",
+    "name":"User",
+    "role":"USER",
+    "createdAt":"2025-02-17T13:36:56.836Z",
+    "updatedAt":"2025-02-17T13:36:56.836Z",
+    "emailVerified":false,
+    "image":null
+  }
 }
 ```
 
@@ -151,12 +161,40 @@ Content-Type: application/json
 **Response:**
 ```json
 {
-  "id": 123,
-  "bicycleId": 1,
-  "status": "active",
-  "startTime": "2025-03-13T10:00:00Z",
-  "endTime": "2025-03-13T12:00:00Z"
-}
+ "id":29,
+ "startTime":"2025-03-18T04:40:30.607Z",
+ "endTime":"2025-03-18T05:40:30.607Z",
+ "hours":1,
+ "status":"ACTIVE",
+ "totalAmount":"5",
+ "paymentStatus":"PENDING",
+ "userId":1,"bicycleId":1,
+ "createdAt":"2025-03-18T04:40:30.608Z",
+ "updatedAt":"2025-03-18T04:40:30.608Z",
+ "user":{
+  "id":1,
+  "email":"admin@gmail.com",
+  "name":"Admin",
+  "password":"$2a$10$llfRCGFQrNAdnsIy0.LdhebjOoJe0tEG.xw1AGXCeqEXxlaGPcC5m",
+  "role":"ADMIN",
+  "createdAt":"2025-02-17T13:36:56.836Z",
+  "updatedAt":"2025-02-17T13:36:56.836Z",
+  "emailVerified":false,
+  "image":null
+  },
+  "bicycle":
+  {
+    "id":1,
+    "name":"Speedster 500",
+    "type":"Road Bike",
+    "hourlyRate":"5",
+    "available":true,
+    "location":"Downtown",
+    "imageUrl":"https://source.unsplash.com/featured/?roadbike",
+    "createdAt":"2025-02-17T19:02:47.000Z",
+    "updatedAt":"2025-03-13T14:31:16.563Z"
+  }
+    }
 ```
 
 **Add a Bicycle (Admin Only):**
@@ -167,16 +205,22 @@ Content-Type: application/json
 
 {
   "name": "Mountain Bike",
-  "location": "Downtown Station"
+  "location": "Downtown Station",
+  "hourlyRate":"5"
 }
 ```
 **Response:**
 ```json
 {
-  "id": 2,
-  "name": "Mountain Bike",
-  "status": "available",
-  "location": "Downtown Station"
+  "id":11,
+  "name":"Mountain Bike",
+  "type":null,
+  "hourlyRate":"5",
+  "available":true,
+  "location":"Downtown Station",
+  "imageUrl":null,
+  "createdAt":"2025-03-18T04:47:22.578Z",
+  "updatedAt":"2025-03-18T04:47:22.578Z"
 }
 ```
 

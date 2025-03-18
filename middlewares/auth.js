@@ -1,5 +1,5 @@
-const jwt = require("jsonwebtoken");
-const { AppError } = require("../utils/errorHandler");
+import jwt from "jsonwebtoken";
+import { AppError } from "../utils/errorHandler.js";
 
 const authMiddleware = (requiredRole = "USER") => {
   return (req, res, next) => {
@@ -27,4 +27,4 @@ const authMiddleware = (requiredRole = "USER") => {
   };
 };
 
-module.exports = authMiddleware;
+export default authMiddleware;

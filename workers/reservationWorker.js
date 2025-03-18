@@ -1,7 +1,7 @@
-const Redis = require('ioredis');
+import Redis from 'ioredis';
 const redis = new Redis(process.env.REDIS_URL );
-const { prisma } = require('../utils/utils');
-const { CompleteReservation } = require('../controllers/reservation');
+import { prisma } from '../utils/utils.js';
+import { CompleteReservation } from '../controllers/reservation.js';
 
 const RESERVATION_JOB_PREFIX = 'reservation:job:';
 

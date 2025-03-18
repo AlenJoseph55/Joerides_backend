@@ -38,7 +38,7 @@ class AppError extends Error {
     };
   };
   
-  module.exports = {
+ export {
     AppError,
     globalErrorHandler,
     catchAsync

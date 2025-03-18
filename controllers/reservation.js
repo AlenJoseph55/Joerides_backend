@@ -1,6 +1,6 @@
-const { catchAsync, AppError } = require("../utils/errorHandler");
-const {prisma,router} = require('../utils/utils')
-const Redis = require('ioredis');
+import { catchAsync, AppError } from "../utils/errorHandler.js";
+import {prisma,router} from '../utils/utils.js'
+import Redis from 'ioredis';
 const redis = new Redis(process.env.REDIS_URL || 'redis://localhost:6379');
 
 // Key prefix for our reservation jobs
@@ -273,7 +273,7 @@ const GetActiveReservations = catchAsync(async(req, res) => {
   res.json(activeReservations);
 });
 
-module.exports = {GetReservations, CancelReservation, CreateReservation,
+export {GetReservations, CancelReservation, CreateReservation,
   CompleteReservation,
   ExtendReservation,
   ManualCompleteReservation,

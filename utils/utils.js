@@ -1,9 +1,9 @@
 // utils/prisma.js
-const { PrismaClient } = require('@prisma/client');
-const express = require("express");
+import { PrismaClient } from '@prisma/client';
+import express from "express";
 
 
 const router = express.Router();
 const prisma = new PrismaClient();
 
-module.exports = {prisma,router};
+export {prisma,router};

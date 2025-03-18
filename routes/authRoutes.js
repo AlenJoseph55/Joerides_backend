@@ -1,9 +1,9 @@
-const {router} = require('../utils/utils');
+import {router} from '../utils/utils.js';
 
 
-const {login, register} = require('../controllers/auth')
+import {login, register} from '../controllers/auth.js';
 
 router.route('/login').post(login);
 router.route('/register').post(register);
 
-module.exports = router;
+export default router;

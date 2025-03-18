@@ -1,7 +1,7 @@
-const {catchAsync,AppError} = require('../utils/errorHandler');
-const { prisma } = require('../utils/utils');
-const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken');
+import {catchAsync,AppError} from '../utils/errorHandler.js';
+import { prisma } from '../utils/utils.js';
+import bcrypt from 'bcryptjs';
+import jwt from 'jsonwebtoken';
 
 const register = catchAsync(async (req, res) => {
     const { name, email, password } = req.body;
@@ -42,7 +42,7 @@ const login = catchAsync(async (req, res) => {
     res.json({ token, user: { ...user, password: undefined } });
 })
 
-module.exports = {
+export {
     register,
     login
 }

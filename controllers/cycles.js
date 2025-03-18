@@ -1,5 +1,5 @@
-const { AppError,catchAsync,globalErrorHandler } = require("../utils/errorHandler");
-const {prisma,router} = require('../utils/utils')
+import { AppError,catchAsync,globalErrorHandler } from "../utils/errorHandler.js";
+import {prisma,router} from '../utils/utils.js'
 
 
 const GetBicycle = catchAsync(async(req,res)=>{
@@ -38,7 +38,7 @@ const DeleteBicycle = catchAsync(async (req,res)=> {
       res.status(204).send();
 })
 
-module.exports = {
+export {
     GetBicycle,
     AddBicycle,
     UpdateBicycle,
